@@ -17,3 +17,9 @@ WEEKEND_DAYS = [
 ENGLISH_WEEKEND = WEEKEND_DAYS.copy()
 ENGLISH_WEEKEND.pop(-1)
 ENGLISH_WEEKEND.pop(-1)
+
+QMS_SYSTEMS = [
+    "Deviation",
+    "Change Control",
+    "Risk Management System",
+]

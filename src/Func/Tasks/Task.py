@@ -20,6 +20,7 @@ class Task:
         responsible: Responsible,
         dueDate: datetime,
         activity: str,
+        startDate: datetime = False,
         progress: int = 0,
     ):
         """
@@ -35,11 +36,17 @@ class Task:
         self.description = description
         self.responsible = responsible
         self.dueDate = dueDate
+        if startDate:
+            self.startDate = startDate
+        else:
+            self.startDate = dueDate
         self.activity = activity
         self.progress = progress
 
         # Validate valid entry's
         self.__validProgress__()
+        self.__validDatetime__(self.dueDate)
+        self.__validDatetime__(self - startDate)
         pass
 
     def __str__(self):
@@ -49,6 +56,7 @@ class Task:
         return (
             f"Task Description: {self.description}\n"
             f"Responsible: {self.responsible}\n"
+            f"Start Date: {self.startDate.strftime('%Y-%m-%d')}\n"
             f"Due Date: {self.dueDate.strftime('%Y-%m-%d')}\n"
             f"Activity: {self.activity}\n"
             f"Progress: {self.progress} %"
@@ -65,15 +73,16 @@ class Task:
                 f"Task attribute progress ({self.progress}) must be between 0 an 100 percent (%)"
             )
 
-    def __validDatetime__(self):
+    @staticmethod
+    def __validDatetime__(dateTime):
         """
         Function validates if set datetime is a valid object datetime.
         Raises:
             ValueError: Datetime attribute dueDate ({self.dueDate}) must be a datetime object
         """
-        if not isinstance(self.dueDate, datetime):
+        if not isinstance(dateTime, datetime):
             raise ValueError(
-                f"Datetime attribute dueDate ({self.dueDate}) must be a datetime object"
+                f"Datetime attribute dueDate ({dateTime}) must be a datetime object"
             )
 
     pass
